@@ -6,15 +6,20 @@ node('master') {
         checkout scm
     }
 
-    stage('stage 1') {
-        sleep 30
-        echo 'stage 1'
-    }
 
-    stage('stage 2') {
-        sleep 30
-        echo "stage 2"
-    }
+
+
+    parallel(firstTask: {
+        stage('stage 1') {
+            sleep 30
+            echo 'stage 1'
+        }
+    }, secondTask: {
+        stage('stage 2') {
+            sleep 30
+            echo "stage 2"
+        }
+    })
 
 } //node
 
